@@ -15,6 +15,13 @@ use KirbyCasts\Kirby\View\View;
 class BladeView extends View
 {
     /**
+     * Template file extension
+     *
+     * @var string
+     */
+    protected static $extension = '.blade.php';
+    
+    /**
      * Create an instance of the view
      *
      * @param array $options
@@ -35,7 +42,6 @@ class BladeView extends View
 
         $this->engine = new Blade($views, $cache);
 
-        $this->setFileExtension('.blade.php');
         $this->setEchoFormat();
     }
 
