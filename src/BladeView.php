@@ -4,7 +4,7 @@ namespace KirbyCasts\Kirby\Blade;
 
 use Philo\Blade\Blade;
 use \c as Config;
-use KirbyCasts\Kirby\View\ViewInterface;
+use KirbyCasts\Kirby\View\View;
 
 /**
  * Enables Kirby to use Laravel's Blade template engine
@@ -12,22 +12,8 @@ use KirbyCasts\Kirby\View\ViewInterface;
  *
  * @uses Philo\Blade\Blade
  */
-class BladeView implements ViewInterface
+class BladeView extends View
 {
-    /**
-     * A Blade instance
-     *
-     * @var Philo\Blade\Blade
-     */
-    protected $blade;
-
-    /**
-     * Template file extension
-     *
-     * @var string
-     */
-    protected static $extension;
-
     /**
      * Create an instance of the view
      *
@@ -47,7 +33,7 @@ class BladeView implements ViewInterface
             Config::get('blade_cache_dir', kirby()->roots()->cache() . DS . 'views');
 
 
-        $this->blade = new Blade($views, $cache);
+        $this->engine = new Blade($views, $cache);
 
         $this->setFileExtension('.blade.php');
         $this->setEchoFormat();
@@ -62,18 +48,7 @@ class BladeView implements ViewInterface
      */
     public function make($view, $data = [])
     {
-        return $this->blade->view()->make($view, $data);
-    }
-
-    /**
-     * Set the file extension for the View engine
-     *
-     * @param string $extension
-     * @return void
-     */
-    public static function setFileExtension($extension = '.php')
-    {
-        self::$extension = $extension;
+        return $this->engine->view()->make($view, $data);
     }
 
     /**
@@ -95,6 +70,6 @@ class BladeView implements ViewInterface
      */
     private function setEchoFormat($format = 'html(%s)')
     {
-        $this->blade->getCompiler()->setEchoFormat($format);
+        $this->engine->getCompiler()->setEchoFormat($format);
     }
 }
