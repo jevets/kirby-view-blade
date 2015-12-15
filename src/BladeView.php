@@ -20,7 +20,7 @@ class BladeView extends View
      * @var string
      */
     protected static $extension = '.blade.php';
-    
+
     /**
      * Create an instance of the view
      *
@@ -74,7 +74,7 @@ class BladeView extends View
      * @param string $format
      * @return void
      */
-    private function setEchoFormat($format = 'html(%s)')
+    protected function setEchoFormat($format = 'html(%s)')
     {
         $this->engine->getCompiler()->setEchoFormat($format);
     }
