@@ -1,0 +1,16 @@
+{
+    "name": "kirbycasts/kirby-view-blade",
+    "description": "",
+    "version": "0.0.1",
+    "authors": [
+        {
+            "name": "Steve Jamesson",
+            "email": "steve@evendev.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "KirbyCasts\\Kirby\\": "src/"
+        }
+    }
+}
