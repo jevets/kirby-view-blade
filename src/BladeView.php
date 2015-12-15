@@ -2,6 +2,8 @@
 
 namespace KirbyCasts\Kirby\Blade;
 
+use Philo\Blade\Blade;
+
 use KirbyCasts\Kirby\View\ViewInterface;
 
 /**
