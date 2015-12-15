@@ -3,7 +3,7 @@
 namespace KirbyCasts\Kirby\Blade;
 
 use Philo\Blade\Blade;
-
+use \c as Config;
 use KirbyCasts\Kirby\View\ViewInterface;
 
 /**
@@ -22,17 +22,35 @@ class BladeView implements ViewInterface
     protected $blade;
 
     /**
+     * Template file extension
+     *
+     * @var string
+     */
+    protected static $extension;
+
+    /**
      * Create an instance of the view
      *
-     * @param string $viewsDir
-     * @param string $cacheDir
+     * @param array $options
      * @return void
      */
-    public function __construct($viewsDir, $cacheDir = '')
+    public function __construct($options = array())
     {
-        $this->blade = new Blade($viewsDir, $cacheDir);
+        $views = 
+            isset($options['views']) ? 
+            $options['views'] : 
+            Config::get('blade_views_dir', kirby()->roots()->templates());
 
-        $this->blade->getCompiler()->setEchoFormat('html(%s)');
+        $cache = 
+            isset($options['cache']) ? 
+            $options['cache'] : 
+            Config::get('blade_cache_dir', kirby()->roots()->cache() . DS . 'views');
+
+
+        $this->blade = new Blade($views, $cache);
+
+        $this->setFileExtension('.blade.php');
+        $this->setEchoFormat();
     }
 
     /**
@@ -45,5 +63,38 @@ class BladeView implements ViewInterface
     public function make($view, $data = [])
     {
         return $this->blade->view()->make($view, $data);
+    }
+
+    /**
+     * Set the file extension for the View engine
+     *
+     * @param string $extension
+     * @return void
+     */
+    public static function setFileExtension($extension = '.php')
+    {
+        self::$extension = $extension;
+    }
+
+    /**
+     * Sets the echo format for compiled Blade templates.
+     *
+     * Blade compiles templates to raw PHP, and it sends all echo data
+     * through Laravel's `e()` function. But in Kirby, `e()` is already 
+     * defined and has a different use.
+     *
+     * This sets the echo format to use Kirby's `html()` function instead.
+     * So your compiled templates will look like `<?php echo html([value]) ?>`
+     * instead of `<?php echo e([value]) ?>`.
+     *
+     * You may use Blade's `{!! $value !!}` syntax if you don't want
+     * the data escaped for HTML.
+     *
+     * @param string $format
+     * @return void
+     */
+    private function setEchoFormat($format = 'html(%s)')
+    {
+        $this->blade->getCompiler()->setEchoFormat($format);
     }
 }
