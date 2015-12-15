@@ -2,7 +2,7 @@
 
 namespace KirbyCasts\Kirby\Blade;
 
-use KirbyCasts\Kirby\View/ViewPage;
+use KirbyCasts\Kirby\View\ViewPage;
 
 class BladePage extends ViewPage
 {
