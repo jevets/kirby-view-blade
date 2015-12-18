@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "kirbycasts/kirby-view": "0.0.1",
+        "kirbycasts/kirby-view": "dev-master",
         "philo/laravel-blade": "^3.1"
     },
     "repositories": [
