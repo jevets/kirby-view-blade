@@ -8,6 +8,8 @@
             "email": "steve@evendev.com"
         }
     ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "kirbycasts/kirby-view": "dev-master",
         "philo/laravel-blade": "^3.1"
