@@ -15,7 +15,7 @@
     "repositories": [
         {
             "type": "git",
-            "url": "/Users/steve/kirby-libraries/view/.git"
+            "url": "/Users/steve/Code/kirby-libraries/view/.git"
         }
     ],
     "autoload": {
